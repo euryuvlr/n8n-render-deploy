@@ -1,20 +1,19 @@
-# Usa a imagem oficial do n8n com Python
+# Usa a imagem oficial do n8n (baseada em Alpine Linux)
 FROM n8nio/n8n:latest
 
 # Muda para root para instalar dependências
 USER root
 
-# Instala Python, pip e ferramentas necessárias
-RUN apt-get update && apt-get install -y \
+# Instala Python, pip e ferramentas necessárias usando apk (Alpine)
+RUN apk add --no-cache \
     python3 \
-    python3-pip \
-    python3-venv \
-    && rm -rf /var/lib/apt/lists/*
+    py3-pip \
+    && rm -rf /var/cache/apk/*
 
 # Instala pacotes Python que seu script precisa
-RUN pip3 install pandas openpyxl requests
+RUN pip3 install --no-cache-dir pandas openpyxl requests
 
-# Cria diretório para dados persistentes
+# Cria diretório para dados (opcional, sem persistência no free tier)
 RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node/.n8n
 
 # Volta para o usuário node (não-root)
