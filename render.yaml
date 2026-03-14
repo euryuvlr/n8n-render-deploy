@@ -2,22 +2,18 @@ services:
   - type: web
     name: n8n-monitoramento
     runtime: docker
-    repo: https://github.com/SEU_USUARIO/SEU_REPO  # Altere para seu repositório
+    repo: https://github.com/euryuvlr/n8n-render-deploy
     plan: free
     envVars:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
       - key: N8N_BASIC_AUTH_USER
-        sync: false  # Será definido manualmente no Render
+        sync: false
       - key: N8N_BASIC_AUTH_PASSWORD
-        sync: false  # Será definido manualmente no Render
+        sync: false
       - key: N8N_HOST
-        sync: false  # Será definido após deploy
+        sync: false
       - key: N8N_PROTOCOL
         value: https
       - key: N8N_PORT
         value: "443"
-    disk:
-      name: n8n-data
-      mountPath: /home/node/.n8n
-      sizeGB: 1
